@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
-import Colors from './Colors'; // Importe o arquivo de cores ou defina as cores diretamente neste arquivo
+import Colors from '../../Styles/Colors'; // Importe o arquivo de cores ou defina as cores diretamente neste arquivo
 
 const VideoList = ({ videos }) => {
   return (
@@ -27,10 +27,10 @@ const styles = StyleSheet.create({
     width: 263,
     height: 150,
     margin: 8,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: Colors.white,
     borderRadius: 15,
     borderWidth: 1,
-    borderColor: '#340059',
+    borderColor: Colors.secondary,
     overflow: 'hidden',
   },
   imageContainer: {

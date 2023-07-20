@@ -1,7 +1,8 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Card, Title, Image } from 'react-native-paper';
-const videoImage = require('../assets/img/Video.jpeg');
+import Colors from '../../Styles/Colors';
+const videoImage = require('../../../assets/img/Video.jpeg');
 
 const VideoCard = () => {
   return (
@@ -20,7 +21,7 @@ const styles = StyleSheet.create({
     height: 200,
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: '#340059',
+    borderColor: Colors.secondary,
   },
   image: {
     width: 235,
@@ -40,7 +41,7 @@ const styles = StyleSheet.create({
   tagText: {
     fontSize: 18,
     lineHeight: 22,
-    color: '#340059',
+    color: Colors.secondary,
     textTransform: 'capitalize',
   },
 });

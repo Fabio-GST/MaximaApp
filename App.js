@@ -1,13 +1,15 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
-import React from 'react';
-import TabButton from './src/TabButton';
-import Colors from './src/Colors';
-import AnalysisScreen from './src/AnalysisScreen';
-import HomeScreen from './src/HomeScreen';
-import ProfileScreen from './src/ProfileScreen';
-import ShopScreen from './src/ShopScreen';
+import React, { useState, useEffect }from 'react';
+import TabButton from './src/Screens/Home/TabButton';
+import Colors from './src/Styles/Colors';
+import AnalysisScreen from './src/Screens/Analyse/AnalysisScreen';
+import HomeScreen from './src/Screens/Home/HomeScreen';
+import ProfileScreen from './src/Screens/Profile/ProfileScreen';
+import ShopScreen from './src/Screens/Shop/ShopScreen';
 import { StyleSheet } from 'react-native';
+import * as Font from 'expo-font';
+import globalStyles from './src/Styles/GlobalStyles'; // Import your global styles
 
 const TabArr = [
   { route: 'Home', label: 'Home', icon: 'home', component: HomeScreen },
@@ -19,6 +21,26 @@ const TabArr = [
 const Tab = createBottomTabNavigator();
 
 const App = () => {
+  const [fontLoaded, setFontLoaded] = useState(false);
+
+  useEffect(() => {
+    async function loadFonts() {
+      await Font.loadAsync({
+        // carrega a fonte Oriole do assets/fonts
+        Oriole: require('./assets/fonts/Oriole-Regular.ttf'),
+        
+      });
+      setFontLoaded(true);
+    }
+
+    loadFonts();
+  }, []);
+
+  if (!fontLoaded) {
+    // Render a placeholder, loading screen, or return null until the font is loaded
+    return null;
+  }
+
   return (
     <NavigationContainer>
       <Tab.Navigator

@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { View, TextInput, StyleSheet, Text, ScrollView, TouchableOpacity } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
-import Colors from './Colors';
+import Colors from '../../Styles/Colors';
 
 
 const SearchBar = () => {
-  const [selectedTag, setSelectedTag] = useState('Todos'); // Estado local para rastrear a tag selecionada
+  const [selectedTag, setSelectedTag] = useState('Todos'); 
 
   return (
     <View style={styles.searchBarContainer}>
@@ -14,7 +14,6 @@ const SearchBar = () => {
         <TextInput
           style={styles.searchInput}
           placeholder="Buscar..."
-          // Add your logic to handle search functionality here
         />
         <MaterialIcons
           name="keyboard-voice"
@@ -57,7 +56,6 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     backgroundColor: Colors.primary,
     paddingHorizontal: 20,
-    marginHorizontal: 16,
     marginTop: 20,
     height: 50,
   },
@@ -88,7 +86,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   tagContainerSelected: {
-    backgroundColor: Colors.secundary,
+    backgroundColor: Colors.secondary,
   },
   tagText: {
     fontSize: 16,
