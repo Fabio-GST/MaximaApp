@@ -29,6 +29,9 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 12,
     left: 15,
+    borderWidth: 1,
+    borderColor: Colors.secondary,
+
   },
   tagContainer: {
     position: 'absolute',

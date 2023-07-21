@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         bottom: 0,
         width: '100%',
-        borderColor: Colors.primary,
+        borderColor: Colors.secondary,
         borderWidth: 1,
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
@@ -66,6 +66,8 @@ const styles = StyleSheet.create({
         height: 400,
         width: '100%',
         borderRadius: 25,
+        borderColor: Colors.secondary,
+        borderWidth: 1,
     },
     videoInfo: {
         flexDirection: 'row',
