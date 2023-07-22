@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import * as Animatable from 'react-native-animatable';
-import Colors from '../../Styles/Colors';
+import Colors from '../Styles/Colors';
 import TabBarIcon from './TabBarIcon';
 
 const animate1 = { 0: { scale: 0.5, translateY: 7 }, 1: { scale: 1.2, translateY: -24 } };
