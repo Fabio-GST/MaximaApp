@@ -8,8 +8,9 @@ const VideoList = ({ videos }) => {
       {videos.map((video, index) => (
         <View key={index} style={styles.videoContainer}>
           <View style={styles.imageContainer}>
-            <Image source={video.image} style={styles.image} />
+            <Image source={{ uri: video.thumbnail }} style={styles.image} />
           </View>
+          <Text style={styles.title}>{video.title}</Text>
         </View>
       ))}
     </View>
@@ -46,6 +47,14 @@ const styles = StyleSheet.create({
     width: undefined,
     height: undefined,
     resizeMode: 'cover',
+  },
+  title: {
+    position: 'absolute',
+    bottom: 10,
+    left: 10,
+    color: Colors.white,
+    fontSize: 18,
+    fontWeight: 'bold',
   },
 });
 

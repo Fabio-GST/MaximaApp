@@ -1,22 +1,23 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import Colors from '../../Styles/Colors';
+import { createStackNavigator } from '@react-navigation/stack';
+import ProductList from './ProductList';
+import ProductDetails from './ProductDetails';
+import Cart from './Cart';
+import Checkout from './Checkout';
+import OrderHistory from './OrderHistory';
+import Support from './Support';
 
-const ShopScreen = () => {
-  return (
-    <View style={styles.container}>
-      <Text>Shop Page</Text>
-    </View>
-  );
-};
+const Stack = createStackNavigator();
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: Colors.white,
-  },
-});
+const ShopScreen = () => (
+  <Stack.Navigator initialRouteName="ProductList">
+    <Stack.Screen name="ProductList" component={ProductList} />
+    <Stack.Screen name="ProductDetails" component={ProductDetails} />
+    <Stack.Screen name="Cart" component={Cart} />
+    <Stack.Screen name="Checkout" component={Checkout} />
+    <Stack.Screen name="OrderHistory" component={OrderHistory} />
+    <Stack.Screen name="Support" component={Support} />
+  </Stack.Navigator>
+);
 
 export default ShopScreen;

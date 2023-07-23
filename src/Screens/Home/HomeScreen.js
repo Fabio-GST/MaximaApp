@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Colors from '../../Styles/Colors';
 import SearchBar from './SearchBar';
 import VideoCard from './VideoCard';
@@ -6,31 +6,25 @@ import Carousel, { Pagination } from 'react-native-snap-carousel';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import VideoList from './VideoList';
 import globalStyles from '../../Styles/GlobalStyles';
-import VideoScreen from '../Video/VideoScreen';
+import VideoScreen from './Video/VideoScreen';
+import { fetchVideos } from '../../controllers/VideoController';
 
 const HomeScreen = () => {
-  const videoData = [
-    {
-      title: 'Video 1',
-      image: require('../../../assets/img/Video.jpeg'),
-    },
-    {
-      title: 'Video 2',
-      image: require('../../../assets/img/Video.jpeg'),
-    },
-    {
-      title: 'Video 3',
-      image: require('../../../assets/img/Video.jpeg'),
-    },
-  ];
-
+  const [videoData, setVideoData] = useState([]);
   const [activeSlide, setActiveSlide] = useState(0);
   const [selectedVideo, setSelectedVideo] = useState(null); // Estado para controlar o vídeo selecionado
+
+  useEffect(() => {
+    fetchVideos()
+      .then(videos => setVideoData(videos))
+      .catch(error => console.error('Error:', error));
+  }, []);
+
 
   const renderVideoCard = ({ item }) => {
     return (
       <TouchableOpacity onPress={() => setSelectedVideo(item)}>
-        <VideoCard title={item.title} image={item.image} />
+        <VideoCard title={item.title} image={item.thumbnail} />
       </TouchableOpacity>
     );
   };
@@ -83,7 +77,7 @@ const HomeScreen = () => {
       {/* Exibir o modal com o vídeo selecionado */}
       {selectedVideo && (
         <VideoScreen
-          videoTitle={selectedVideo.title}
+          video={selectedVideo} // Aqui está a correção
           onClose={() => setSelectedVideo(null)}
         />
       )}

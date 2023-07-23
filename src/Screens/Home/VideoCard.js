@@ -1,15 +1,14 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Card, Title, Image } from 'react-native-paper';
+import { Card, Title } from 'react-native-paper';
 import Colors from '../../Styles/Colors';
-const videoImage = require('../../../assets/img/Video.jpeg');
 
-const VideoCard = () => {
+const VideoCard = ({ image, title }) => {
   return (
     <Card style={styles.cardContainer}>
-      <Card.Cover source={videoImage} style={styles.image} />
+      <Card.Cover source={{ uri: image }} style={styles.image} />
       <View style={styles.tagContainer}>
-        <Title style={styles.tagText}>Discador ilimitado</Title>
+        <Title style={styles.tagText}>{title}</Title>
       </View>
     </Card>
   );
@@ -31,7 +30,6 @@ const styles = StyleSheet.create({
     left: 15,
     borderWidth: 1,
     borderColor: Colors.secondary,
-
   },
   tagContainer: {
     position: 'absolute',
