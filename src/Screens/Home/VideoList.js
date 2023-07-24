@@ -1,17 +1,18 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import Colors from '../../Styles/Colors'; // Importe o arquivo de cores ou defina as cores diretamente neste arquivo
 
-const VideoList = ({ videos }) => {
+const VideoList = ({ videos, onVideoSelect }) => {
   return (
     <View style={styles.container}>
       {videos.map((video, index) => (
-        <View key={index} style={styles.videoContainer}>
-          <View style={styles.imageContainer}>
-            <Image source={{ uri: video.thumbnail }} style={styles.image} />
+        <TouchableOpacity key={index} onPress={() => onVideoSelect(video)}>
+          <View style={styles.videoContainer}>
+            <View style={styles.imageContainer}>
+              <Image source={{ uri: video.thumbnail }} style={styles.image} />
+            </View>
           </View>
-          <Text style={styles.title}>{video.title}</Text>
-        </View>
+        </TouchableOpacity>
       ))}
     </View>
   );
@@ -47,14 +48,6 @@ const styles = StyleSheet.create({
     width: undefined,
     height: undefined,
     resizeMode: 'cover',
-  },
-  title: {
-    position: 'absolute',
-    bottom: 10,
-    left: 10,
-    color: Colors.white,
-    fontSize: 18,
-    fontWeight: 'bold',
   },
 });
 

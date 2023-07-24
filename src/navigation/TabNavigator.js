@@ -2,7 +2,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { StyleSheet } from 'react-native';
 import { TabArr } from './NavigationTabs';
 import TabButton from './TabButton';
-import Colors from '../Styles/Colors'; // Ajuste este caminho para a localização correta de Colors
+import Colors from '../Styles/Colors';
 
 const Tab = createBottomTabNavigator();
 
@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export const TabNavigator = () => (
+const TabNavigator = () => (
   <Tab.Navigator
     screenOptions={{
       headerShown: false,
@@ -40,3 +40,5 @@ export const TabNavigator = () => (
     ))}
   </Tab.Navigator>
 );
+
+export default TabNavigator;

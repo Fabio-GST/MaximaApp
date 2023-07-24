@@ -1,28 +1,44 @@
+import React, { useEffect, useState } from 'react';
+import { getUser } from './src/controllers/UsuarioController';
 import { NavigationContainer } from '@react-navigation/native';
-import { useFonts, TabNavigator } from './src/navigation';
-import Colors from './src/Styles/Colors';
-import { StyleSheet } from 'react-native';
-import globalStyles from './src/Styles/GlobalStyles'; 
+import { createStackNavigator } from '@react-navigation/stack';
+import LoginScreen from './src/login/LoginScreen'
+import TabNavigator from './src/navigation/TabNavigator';
+
+const Stack = createStackNavigator();
 
 const App = () => {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const checkUser = async () => {
+      const user = await getUser();
+      setUser(user);
+    }
+
+    checkUser();
+  }, []);
+
   return (
     <NavigationContainer>
-      <TabNavigator />
+      <Stack.Navigator>
+        {user ? (
+          <Stack.Screen 
+            name="TabNavigator"
+            component={TabNavigator}
+            options={{ headerShown: false }}  // This removes the header
+          />
+        ) : (
+          <Stack.Screen 
+            name="Login" 
+            component={LoginScreen}
+            options={{ headerShown: false }}  // This removes the header
+          />
+        )}
+      </Stack.Navigator>
     </NavigationContainer>
   );
 };
 
-const styles = StyleSheet.create({
-  tabBar: {
-    height: 70,
-    position: 'absolute',
-    bottom: 0,
-    right: 0,
-    left: 0,
-    borderTopLeftRadius: 10,
-    borderTopRightRadius: 10,
-    backgroundColor: Colors.primary,
-  },
-});
-
 export default App;
+

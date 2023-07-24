@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Modal } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Modal, Image, ScrollView } from 'react-native';
 import Colors from '../../../Styles/Colors';
 import { Ionicons } from '@expo/vector-icons';
 import YoutubePlayer from 'react-native-youtube-iframe';
@@ -23,7 +23,6 @@ const VideoScreen = ({ video, onClose }) => {
         return videoId;
     };
 
-
     return (
         <Modal
             animationType="slide"
@@ -36,6 +35,7 @@ const VideoScreen = ({ video, onClose }) => {
                     <TouchableOpacity style={styles.goBackButton} onPress={handleCloseModal}>
                         <Ionicons name="arrow-back" size={24} color={Colors.primary} />
                     </TouchableOpacity>
+
                     <TouchableOpacity style={styles.moreOptionsButton}>
                         <Ionicons name="ellipsis-vertical" size={24} color={Colors.primary} />
                     </TouchableOpacity>
@@ -43,21 +43,28 @@ const VideoScreen = ({ video, onClose }) => {
                 <View style={styles.videoPlayerContainer}>
                     <YoutubePlayer
                         ref={playerRef}
-                        height={954} // Defina a altura e a largura para serem iguais
+                        height={354}
                         play={true}
                         videoId={getVideoId(video.url)}
                         onChangeState={event => console.log(event)}
-                        style={styles.videoPlayer} // Estilo adicional
+                        style={styles.videoPlayer}
                     />
-
                 </View>
-
 
                 <View style={styles.videoInfo}>
-                    <Text style={styles.videoTitle}>{video.title}</Text>
+                    <View style={styles.titleContainer}>
+                        <Image source={{ uri: video.thumbnail }} style={styles.thumbnail} />
+                        <Text style={styles.title}>{video.title}</Text>
+                    </View>
+                    <View style={styles.iconContainer}>
+                        <Ionicons name="thumbs-up-outline" size={24} color={Colors.secondary} style={styles.icon}/>
+                        <Ionicons name="thumbs-down-outline" size={24} color={Colors.secondary} style={styles.dislikeIcon} />
+                    </View>
                 </View>
 
-                <Text style={styles.videoDescription}>{video.description}</Text>
+                <ScrollView style={styles.scrollContainer}>
+                    <Text style={styles.videoDescription}>{video.description}</Text>
+                </ScrollView>
 
                 {/* Conteúdo adicional do vídeo, se necessário */}
             </View>
@@ -68,53 +75,97 @@ const VideoScreen = ({ video, onClose }) => {
 const styles = StyleSheet.create({
     modalContainer: {
         height: '85%',
-        backgroundColor: Colors.white,
         position: 'absolute',
         bottom: 0,
+        backgroundColor: Colors.white,
+        padding: 16,
+        borderTopLeftRadius: 16,
+        borderTopRightRadius: 16,
         width: '100%',
         borderColor: Colors.secondary,
         borderWidth: 1,
-        borderTopLeftRadius: 20,
-        borderTopRightRadius: 20,
-        padding: 16,
-        gap: 25,
+
     },
     modalHeader: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
+        marginBottom: 16,
+    },
+    goBackButton: {
+        flex: 1,
+    },
+    titleContainer: {
+        flex: 8,
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    thumbnail: {
+        width: 50,
+        height: 50,
+        borderRadius: 25,
+        marginRight: 16,
+    },
+    title: {
+        fontSize: 16,
+        lineHeight: 20,
+        textTransform: 'capitalize',
+        color: Colors.secondary,
+        width: '75%',
+        height: 70,
+        overflow: 'ellipsis',
+    },
+    moreOptionsButton: {
+        flex: 1,
+        alignItems: 'flex-end',
     },
     videoPlayerContainer: {
-        height: 354,
-        borderRadius: 25,
-        borderWidth: 1,
-        borderColor: Colors.secondary,
+        height: 200,
+        borderRadius: 20,
         overflow: 'hidden',
+        marginBottom: 16,
     },
     videoPlayer: {
-        alignSelf: 'stretch',
-        height: '100%', // Adicione esta linha
-        width: '100%', // Adicione esta linha
+        width: '100%',
     },
     videoInfo: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        paddingHorizontal: 16,
+        marginBottom: 16,
     },
-    videoTitle: {
-        fontSize: 16,
-        lineHeight: 20,
+    viewCount: {
+        fontSize: 12,
+        lineHeight: 15,
         textTransform: 'capitalize',
-        color: Colors.secondary,
+        color: Colors.white,
     },
+    iconContainer: {
+        flexDirection: 'row',
+    },
+    dislikeIcon: {
+        borderRadius: 50,
+        borderWidth: 1,
+        borderColor: Colors.secondary,
+        padding: 8,
+  
+    },
+    scrollContainer: {
+        flex: 1,
+    },
+    icon: {
+        borderRadius: 50,
+        borderWidth: 1,
+        borderColor: Colors.secondary,
+        padding: 8,
+        marginRight: 16,
+    },
+
     videoDescription: {
-        fontSize: 20,
+        fontSize: 16,
         lineHeight: 24,
         textTransform: 'capitalize',
         color: Colors.secondary,
-        paddingHorizontal: 16,
-        marginBottom: 16,
     },
 });
 

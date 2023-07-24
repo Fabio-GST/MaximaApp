@@ -2,7 +2,7 @@
 
 import Video from '../models/Video';
 
-const API_URL = 'http://192.168.0.2:3000/api/videos';
+const API_URL = 'http://192.168.15.158:3000/api/videos';
 
 export const fetchVideos = async () => {
   try {

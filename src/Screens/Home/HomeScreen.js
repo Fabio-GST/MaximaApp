@@ -8,8 +8,11 @@ import VideoList from './VideoList';
 import globalStyles from '../../Styles/GlobalStyles';
 import VideoScreen from './Video/VideoScreen';
 import { fetchVideos } from '../../controllers/VideoController';
+import { useNavigation } from '@react-navigation/native';
+import VideoListScreen from './videoListScreen';
 
 const HomeScreen = () => {
+  const navigation = useNavigation(); // inicialize o hook
   const [videoData, setVideoData] = useState([]);
   const [activeSlide, setActiveSlide] = useState(0);
   const [selectedVideo, setSelectedVideo] = useState(null); // Estado para controlar o vídeo selecionado
@@ -19,7 +22,6 @@ const HomeScreen = () => {
       .then(videos => setVideoData(videos))
       .catch(error => console.error('Error:', error));
   }, []);
-
 
   const renderVideoCard = ({ item }) => {
     return (
@@ -62,22 +64,22 @@ const HomeScreen = () => {
 
       <View style={styles.row}>
         <Text style={globalStyles.titleText}>Populares</Text>
-        <Text style={globalStyles.viewMoreText}>Ver mais</Text>
+        <TouchableOpacity> 
+          <Text style={globalStyles.viewMoreText}>Ver mais</Text>
+        </TouchableOpacity>
       </View>
 
       {/* Lista de vídeos em uma linha */}
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         <View style={styles.videoListContainer}>
-          {videoData.map((video, index) => (
-            <VideoList key={index} videos={videoData} />
-          ))}
+          <VideoList videos={videoData} onVideoSelect={setSelectedVideo} />
         </View>
       </ScrollView>
 
       {/* Exibir o modal com o vídeo selecionado */}
       {selectedVideo && (
         <VideoScreen
-          video={selectedVideo} // Aqui está a correção
+          video={selectedVideo} 
           onClose={() => setSelectedVideo(null)}
         />
       )}

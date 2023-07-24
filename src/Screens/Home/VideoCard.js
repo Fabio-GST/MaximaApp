@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
 import { Card, Title } from 'react-native-paper';
 import Colors from '../../Styles/Colors';
 
@@ -8,7 +8,9 @@ const VideoCard = ({ image, title }) => {
     <Card style={styles.cardContainer}>
       <Card.Cover source={{ uri: image }} style={styles.image} />
       <View style={styles.tagContainer}>
-        <Title style={styles.tagText}>{title}</Title>
+        <Text style={styles.tagText} numberOfLines={1} ellipsizeMode='tail'>
+          {title}
+        </Text>
       </View>
     </Card>
   );
@@ -33,15 +35,14 @@ const styles = StyleSheet.create({
   },
   tagContainer: {
     position: 'absolute',
-    width: 141,
+    width: 235,
     height: 22,
+    left: 15,
     top: 170,
-    left: 55,
-    justifyContent: 'center',
   },
   tagText: {
-    fontSize: 18,
-    lineHeight: 22,
+    fontSize: 16,
+    lineHeight: 16,
     color: Colors.secondary,
     textTransform: 'capitalize',
   },
