@@ -9,13 +9,12 @@ import globalStyles from '../../Styles/GlobalStyles';
 import VideoScreen from './Video/VideoScreen';
 import { fetchVideos } from '../../controllers/VideoController';
 import { useNavigation } from '@react-navigation/native';
-import VideoListScreen from './videoListScreen';
 
 const HomeScreen = () => {
-  const navigation = useNavigation(); // inicialize o hook
+  const navigation = useNavigation();
   const [videoData, setVideoData] = useState([]);
   const [activeSlide, setActiveSlide] = useState(0);
-  const [selectedVideo, setSelectedVideo] = useState(null); // Estado para controlar o vídeo selecionado
+  const [selectedVideo, setSelectedVideo] = useState(null);
 
   useEffect(() => {
     fetchVideos()
@@ -64,19 +63,17 @@ const HomeScreen = () => {
 
       <View style={styles.row}>
         <Text style={globalStyles.titleText}>Populares</Text>
-        <TouchableOpacity> 
+        <TouchableOpacity onPress={() => navigation.navigate('VideoListScreen', { videos: videoData })}> 
           <Text style={globalStyles.viewMoreText}>Ver mais</Text>
         </TouchableOpacity>
       </View>
 
-      {/* Lista de vídeos em uma linha */}
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         <View style={styles.videoListContainer}>
           <VideoList videos={videoData} onVideoSelect={setSelectedVideo} />
         </View>
       </ScrollView>
 
-      {/* Exibir o modal com o vídeo selecionado */}
       {selectedVideo && (
         <VideoScreen
           video={selectedVideo} 
@@ -86,6 +83,7 @@ const HomeScreen = () => {
     </View>
   );
 };
+
 
 const styles = StyleSheet.create({
   container: {

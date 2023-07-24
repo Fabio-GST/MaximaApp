@@ -57,8 +57,12 @@ const VideoScreen = ({ video, onClose }) => {
                         <Text style={styles.title}>{video.title}</Text>
                     </View>
                     <View style={styles.iconContainer}>
-                        <Ionicons name="thumbs-up-outline" size={24} color={Colors.secondary} style={styles.icon}/>
-                        <Ionicons name="thumbs-down-outline" size={24} color={Colors.secondary} style={styles.dislikeIcon} />
+                        <TouchableOpacity>
+                            <Ionicons name="thumbs-up-outline" size={24} color={Colors.secondary} style={styles.icon}/>
+                        </TouchableOpacity>
+                        <TouchableOpacity>
+                            <Ionicons name="thumbs-down-outline" size={24} color={Colors.secondary} style={styles.dislikeIcon} />
+                        </TouchableOpacity>
                     </View>
                 </View>
 
@@ -124,6 +128,8 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         overflow: 'hidden',
         marginBottom: 16,
+        borderColor: Colors.secondary,
+        borderWidth: 1,
     },
     videoPlayer: {
         width: '100%',

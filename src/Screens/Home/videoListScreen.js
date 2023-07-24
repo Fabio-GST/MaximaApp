@@ -1,21 +1,30 @@
 import React from 'react';
-import { ScrollView, View, Text, Image, StyleSheet } from 'react-native';
+import { ScrollView, View, Text, Image, StyleSheet, Button } from 'react-native';
 import Colors from '../../Styles/Colors';
 
 const VideoCard = ({ video }) => {
   return (
     <View style={styles.cardContainer}>
       <Text style={styles.title}>{video.title}</Text>
-      <Image source={{ uri: video.thumbnail }} style={styles.image} />
       <Text style={styles.description}>{video.description}</Text>
     </View>
   );
 };
 
-const VideoListScreen = ({ videos }) => {
+const VideoListScreen = ({ route }) => {
+  const { videos } = route.params;
+
+
+  if (!videos) {
+    return (
+      <View>
+        <Text>Videos não encontrados.</Text>
+      </View>
+    );
+  }
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
-        <searchBar />
       {videos.map((video, index) => (
         <VideoCard key={index} video={video} />
       ))}

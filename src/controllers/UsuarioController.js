@@ -38,4 +38,12 @@ export const getUser = async () => {
     }
 }
 
+export const logoutUser = async () => {
+    try {
+        await AsyncStorage.removeItem('@user');
+    } catch (err) {
+        console.error(err);
+    }
+}
+
 

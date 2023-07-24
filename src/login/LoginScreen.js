@@ -1,65 +1,74 @@
 import React, { useState } from 'react';
-import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Image, View, TextInput, StyleSheet, Alert } from 'react-native';
+import { Button, Input } from 'react-native-elements';
 import { loginUser } from '../controllers/UsuarioController';
+import { Feather } from '@expo/vector-icons';  // Import Feather from @expo/vector-icons
+import { useNavigation } from '@react-navigation/native'; // Import useNavigation
+import Colors from '../Styles/Colors';
 
-
-const LoginScreen = () => {
+export default function LoginScreen() {
     const [login, setLogin] = useState('');
     const [senha, setSenha] = useState('');
-    const [error, setError] = useState('');
+    const [secureText, setSecureText] = useState(true);
+    const navigation = useNavigation(); // Get the navigation object
 
     const handleLogin = async () => {
         try {
-            const data = await loginUser(login, senha);
-
-            if (data.error) {
-                setError(data.error);
-            } else {
-                // Aqui você pode guardar o token do usuário no armazenamento local do dispositivo
-                console.log('Usuário autenticado com sucesso:', data);
-            }
-        } catch (err) {
-            setError('Ocorreu um erro durante a autenticação');
+            await loginUser(login, senha);
+            navigation.navigate('Main'); // Navigate to Main screen on successful login
+        } catch (e) {
+            Alert.alert('Erro de Login', 'Falha ao fazer login. Verifique suas credenciais.');
         }
     };
-
+    
     return (
         <View style={styles.container}>
-            <Text style={styles.error}>{error}</Text>
-            <TextInput
-                style={styles.input}
+            <Image
+                source={require('../../assets/img/logo_vertical_ALTA_preferencial_MAXIMAVOIP.png')}
+                style={styles.logo}
+                resizeMode="contain"
+            />
+            <Input
                 placeholder="Usuário"
+                onChangeText={setLogin}
                 value={login}
-                onChangeText={text => setLogin(text)}
             />
-            <TextInput
-                style={styles.input}
+            <Input
                 placeholder="Senha"
+                onChangeText={setSenha}
                 value={senha}
-                onChangeText={text => setSenha(text)}
-                secureTextEntry
+                secureTextEntry={secureText}
+                rightIcon={
+                    <Feather  // Use Feather component for the icon
+                        name={secureText ? 'eye-off' : 'eye'}
+                        size={24}
+                        color='black'
+                        onPress={() => setSecureText(!secureText)}
+                    />
+                }
             />
-            <Button title="Entrar" onPress={handleLogin} />
+            <Button
+                title="Entrar"
+                onPress={handleLogin}
+                buttonStyle={styles.loginButton}
+            />
         </View>
     );
-};
+}
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
-        padding: 20,
+        padding: 16,
+
     },
-    input: {
-        height: 40,
-        borderColor: 'gray',
-        borderWidth: 1,
-        marginBottom: 10,
-        padding: 10,
+    logo: {
+        width: '100%',
+        alignSelf: 'center',
+
     },
-    error: {
-        color: 'red',
+    loginButton: {
+        backgroundColor: Colors.primary, // Change this to your primary color
     },
 });
-
-export default LoginScreen;
